@@ -1,3 +1,4 @@
+import { ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { ConfigService } from '@nestjs/config';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
@@ -10,6 +11,7 @@ async function bootstrap() {
   const PORT = config.get<number>('API_PORT') ?? 5000;
 
   app.setGlobalPrefix('/api/v1');
+  app.useGlobalPipes(new ValidationPipe());
   app.enableCors({ credentials: true, origin: true });
 
   const apiDocument = new DocumentBuilder()
