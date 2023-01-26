@@ -32,3 +32,9 @@ services:
       TYPEORM_DB: ${TYPEORM_DB}
       TYPEORM_PORT: ${TYPEORM_PORT}
       TYPEORM_HOST: database
+      MAIL_HOST: ${MAIL_HOST}
+      MAIL_PORT: ${MAIL_PORT}
+      MAIL_USER: ${MAIL_USER}
+      MAIL_PASS: ${MAIL_PASS}
+      MAIL_FROM: ${MAIL_FROM}
+      WORK_MAIL: ${WORK_MAIL}

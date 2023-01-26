@@ -21,6 +21,10 @@ import * as Joi from 'joi';
 				TYPEORM_USER: Joi.string().required(),
 				TYPEORM_PASSWORD: Joi.string().required(),
 				TYPEORM_DB: Joi.string().required(),
+				MAIL_HOST: Joi.string().required(),
+				MAIL_PORT: Joi.number().integer().positive().default(465),
+				MAIL_USER: Joi.string().required(),
+				MAIL_PASS: Joi.string().required(),
 			}),
 		}),
 		ThrottlerModule.forRoot({
