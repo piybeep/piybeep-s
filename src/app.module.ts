@@ -23,8 +23,10 @@ import * as Joi from 'joi';
 				TYPEORM_DB: Joi.string().required(),
 				MAIL_HOST: Joi.string().required(),
 				MAIL_PORT: Joi.number().integer().positive().default(465),
-				MAIL_USER: Joi.string().required(),
+				MAIL_USER: Joi.string().email().required(),
 				MAIL_PASS: Joi.string().required(),
+				MAIL_FROM: Joi.string().required(),
+				WORK_MAIL: Joi.string().email().default('piybeep@gmail.com'),
 			}),
 		}),
 		ThrottlerModule.forRoot({
