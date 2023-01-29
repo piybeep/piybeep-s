@@ -6,6 +6,9 @@ import { ProductsModule } from './products/products.module';
 import { ReviewsModule } from './reviews/reviews.module';
 import { RequestsModule } from './requests/requests.module';
 import { MailModule } from './mail/mail.module';
+
+import { AppController } from './app.controller';
+
 import * as Joi from 'joi';
 
 @Module({
@@ -53,6 +56,7 @@ import * as Joi from 'joi';
 		RequestsModule,
 		MailModule,
 	],
+	controllers: [AppController],
 	providers: [],
 })
 export class AppModule {}

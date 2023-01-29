@@ -11,7 +11,7 @@ async function bootstrap() {
 	const config = app.get(ConfigService);
 	const PORT = config.get<number>('API_PORT') ?? 5000;
 
-	app.use(morgan('tiny'));
+	app.use(morgan('combined'));
 	app.setGlobalPrefix('/api');
 	app.useGlobalPipes(new ValidationPipe());
 	app.enableCors({ credentials: true, origin: true });

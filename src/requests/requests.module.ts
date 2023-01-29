@@ -9,5 +9,6 @@ import { MailModule } from 'src/mail/mail.module';
 	imports: [TypeOrmModule.forFeature([Request]), MailModule],
 	controllers: [RequestsController],
 	providers: [RequestsService],
+	exports: [RequestsService],
 })
 export class RequestsModule {}
