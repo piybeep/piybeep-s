@@ -9,7 +9,7 @@ services:
     volumes:
         - ./pgdata:/var/lib/postgresql/data
     ports:
-        - ${TYPEORM_PORT}:5432
+        - ${TYPEORM_PORT}:${TYPEORM_PORT}
   app:
     build: 
       context: .
