@@ -12,7 +12,7 @@ async function bootstrap() {
 	const PORT = config.get<number>('API_PORT') ?? 5000;
 
 	app.use(morgan('tiny'));
-	app.setGlobalPrefix('/api/v1');
+	app.setGlobalPrefix('/api');
 	app.useGlobalPipes(new ValidationPipe());
 	app.enableCors({ credentials: true, origin: true });
 
