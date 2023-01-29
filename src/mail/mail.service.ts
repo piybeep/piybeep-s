@@ -11,8 +11,6 @@ export class MailService {
 	) {}
 
 	async sendRequestNotification(payload: RequestNotificationPaylaod) {
-		console.log(payload, this.configServive.get('WORK_MAIL'));
-
 		return this.mailerService.sendMail({
 			to: this.configServive.get('WORK_MAIL'),
 			subject: 'Новая заявка',
