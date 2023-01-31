@@ -11,7 +11,11 @@ async function bootstrap() {
 	const config = app.get(ConfigService);
 	const PORT = config.get<number>('API_PORT') ?? 5000;
 
-	app.use(morgan('combined'));
+	app.use(
+		morgan(
+			'[:date[clf]] :method :url :status :res[content-length] :response-time ms ":referrer" ":user-agent"',
+		),
+	);
 	app.setGlobalPrefix('/api');
 	app.useGlobalPipes(new ValidationPipe());
 	app.enableCors({ credentials: true, origin: true });
