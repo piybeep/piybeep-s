@@ -3,15 +3,15 @@ services:
     image: postgres:alpine
     restart: always
     environment:
-        POSTGRES_USER: ${TYPEORM_USER}
-        POSTGRES_PASSWORD: ${TYPEORM_PASSWORD}
-        POSTGRES_DB: ${TYPEORM_DB}
+      POSTGRES_USER: ${TYPEORM_USER}
+      POSTGRES_PASSWORD: ${TYPEORM_PASSWORD}
+      POSTGRES_DB: ${TYPEORM_DB}
     volumes:
-        - ./pgdata:/var/lib/postgresql/data
+      - ./pgdata:/var/lib/postgresql/data
     ports:
-        - ${TYPEORM_PORT}:${TYPEORM_PORT}
+      - ${TYPEORM_PORT}:${TYPEORM_PORT}
   app:
-    build: 
+    build:
       context: .
       dockerfile: Dockerfile
     restart: unless-stopped
@@ -36,4 +36,4 @@ services:
       MAIL_PASS: ${MAIL_PASS}
       MAIL_FROM: ${MAIL_FROM}
       WORK_MAIL: ${WORK_MAIL}
-      TELEGRAM_BOT_TOKENL: ${TELEGRAM_BOT_TOKEN}
+      TELEGRAM_BOT_TOKEN: ${TELEGRAM_BOT_TOKEN}
