@@ -32,6 +32,11 @@ export class MailService {
 		payload: RequestNotificationPaylaod,
 	) {
 		const token = this.configServive.get('TELEGRAM_BOT_TOKEN');
+		if (!token)
+			return console.log(
+				`[${new Date().toLocaleString()}] sendTelegramNotification: token is undefined`,
+			);
+
 		const message =
 			'<b>Новая заявка</b>%0A%0AИмя: ' +
 			payload.name +
