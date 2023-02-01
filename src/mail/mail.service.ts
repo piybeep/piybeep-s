@@ -53,7 +53,9 @@ export class MailService {
 		to.map((target) =>
 			https
 				.get(
-					`https://api.telegram.org/bot${token}/sendMessage?chat_id=${target}&text=${message}&parse_mode=HTML`,
+					`https://api.telegram.org/bot${token}/sendMessage?chat_id=${encodeURIComponent(
+						target,
+					)}&text=${message}&parse_mode=HTML`,
 					(res) =>
 						console.log(
 							`[${new Date().toLocaleString()}] Sending message to ${target}: ${
