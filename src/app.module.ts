@@ -10,6 +10,9 @@ import { MailModule } from './mail/mail.module';
 import { AppController } from './app.controller';
 
 import * as Joi from 'joi';
+import { ServeStaticModule } from '@nestjs/serve-static';
+import { join } from 'path';
+import { StaticModule } from './files/files.module';
 
 @Module({
 	imports: [
@@ -30,6 +33,7 @@ import * as Joi from 'joi';
 				MAIL_PASS: Joi.string().required(),
 				MAIL_FROM: Joi.string().required(),
 				WORK_MAIL: Joi.string().email().default('piybeep@gmail.com'),
+				TELEGRAM_BOT_TOKEN: Joi.string(),
 			}),
 		}),
 		ThrottlerModule.forRoot({
@@ -51,10 +55,16 @@ import * as Joi from 'joi';
 				autoLoadEntities: true,
 			}),
 		}),
+		ServeStaticModule.forRoot({
+			rootPath: join(__dirname, 'static'),
+			serveRoot: '/api/static',
+		}),
+
 		ProductsModule,
 		ReviewsModule,
 		RequestsModule,
 		MailModule,
+		StaticModule,
 	],
 	controllers: [AppController],
 	providers: [],
