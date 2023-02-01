@@ -2,16 +2,15 @@ import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ThrottlerModule } from '@nestjs/throttler';
+import * as Joi from 'joi';
+import { ServeStaticModule } from '@nestjs/serve-static';
+import { join } from 'path';
+
 import { ProductsModule } from './products/products.module';
 import { ReviewsModule } from './reviews/reviews.module';
 import { RequestsModule } from './requests/requests.module';
 import { MailModule } from './mail/mail.module';
-
 import { AppController } from './app.controller';
-
-import * as Joi from 'joi';
-import { ServeStaticModule } from '@nestjs/serve-static';
-import { join } from 'path';
 import { StaticModule } from './files/files.module';
 
 @Module({
@@ -58,8 +57,11 @@ import { StaticModule } from './files/files.module';
 		ServeStaticModule.forRoot({
 			rootPath: join(__dirname, 'static'),
 			serveRoot: '/api/static',
+			serveStaticOptions: {
+				redirect: false,
+				index: false,
+			},
 		}),
-
 		ProductsModule,
 		ReviewsModule,
 		RequestsModule,
