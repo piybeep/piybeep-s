@@ -39,23 +39,23 @@ export class MailService {
 
 		const message =
 			'<b>Новая заявка</b>%0A%0AИмя: ' +
-			payload.name +
+			encodeURIComponent(payload.name) +
 			'%0AСвязь: ' +
-			payload.contact +
+			encodeURIComponent(payload.contact) +
 			'%0AВыбор: ' +
-			payload.product +
+			encodeURIComponent(payload.product) +
 			'%0A%0A<code>' +
-			(typeof payload.id == 'number'
-				? payload.id
-				: payload.id.split('-')[0]) +
+			encodeURIComponent(
+				typeof payload.id == 'number'
+					? payload.id
+					: payload.id.split('-')[0],
+			) +
 			'</code>';
 
 		to.map((target) =>
 			https
 				.get(
-					`https://api.telegram.org/bot${token}/sendMessage?chat_id=${encodeURIComponent(
-						target,
-					)}&text=${message}&parse_mode=HTML`,
+					`https://api.telegram.org/bot${token}/sendMessage?chat_id=${target}&text=${message}&parse_mode=HTML`,
 					(res) =>
 						console.log(
 							`[${new Date().toLocaleString()}] Sending message to ${target}: ${
