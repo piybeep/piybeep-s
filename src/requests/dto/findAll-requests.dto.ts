@@ -1,5 +1,5 @@
 import { ApiPropertyOptional } from '@nestjs/swagger';
-import { IsOptional, IsNumberString } from 'class-validator';
+import { IsOptional, IsNumberString, IsString } from 'class-validator';
 
 export class FindAllRequestsDto {
 	@ApiPropertyOptional({ default: 0 })
@@ -11,4 +11,9 @@ export class FindAllRequestsDto {
 	@IsOptional()
 	@IsNumberString({ no_symbols: true })
 	count?: number;
+
+	@ApiPropertyOptional({ default: 'createdAt:ASC' })
+	@IsOptional()
+	@IsString()
+	sort?: string;
 }

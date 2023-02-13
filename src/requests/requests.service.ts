@@ -30,6 +30,17 @@ export class RequestsService {
 		const take = options.count ?? 12;
 		const skip = options.offset ?? 0;
 
-		return this.requestsRepos.findAndCount({ take, skip });
+		const order = options.sort?.split(':');
+
+		return this.requestsRepos.findAndCount({
+			take,
+			skip,
+			order: Object.assign(
+				{},
+				order.length && {
+					[order[0]]: order[1] ?? 'asc',
+				},
+			),
+		});
 	}
 }

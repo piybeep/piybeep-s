@@ -1,14 +1,6 @@
-FROM node:18-alpine as development
-WORKDIR /app
-COPY *.json yarn.lock ./
-RUN yarn install -s
-COPY ./ ./
-VOLUME ./src ./src
-CMD [ "yarn", "run", "start:dev" ]
-
 FROM node:lts-alpine as dependencies
 WORKDIR /app
-COPY package*.json ./
+COPY package.json yarn.lock ./
 RUN npm i -s
 
 FROM node:lts-alpine as builder

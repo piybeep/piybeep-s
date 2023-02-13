@@ -18,7 +18,10 @@ async function bootstrap() {
 	);
 	app.setGlobalPrefix('/api');
 	app.useGlobalPipes(new ValidationPipe());
-	app.enableCors({ credentials: true, origin: true });
+	app.enableCors({
+		credentials: true,
+		origin: ['piybeep.com', 'manager.piybeep.com'],
+	});
 
 	const apiDocument = new DocumentBuilder()
 		.setTitle('Piybeep API')
