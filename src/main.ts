@@ -20,7 +20,7 @@ async function bootstrap() {
 	app.useGlobalPipes(new ValidationPipe());
 	app.enableCors({
 		credentials: true,
-		origin: ['piybeep.com', 'manager.piybeep.com'],
+		origin: ['https://piybeep.com', 'https://manager.piybeep.com'],
 	});
 
 	const apiDocument = new DocumentBuilder()
