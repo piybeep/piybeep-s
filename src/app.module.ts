@@ -12,6 +12,7 @@ import { RequestsModule } from './requests/requests.module';
 import { MailModule } from './mail/mail.module';
 import { AppController } from './app.controller';
 import { StaticModule } from './files/files.module';
+import { ProjectsModule } from './projects/projects.module';
 
 @Module({
 	imports: [
@@ -67,6 +68,7 @@ import { StaticModule } from './files/files.module';
 		RequestsModule,
 		MailModule,
 		StaticModule,
+		ProjectsModule,
 	],
 	controllers: [AppController],
 	providers: [],
