@@ -15,5 +15,5 @@ export class CreateReviewDto {
 	@ApiProperty()
 	@IsString()
 	@IsNotEmpty()
-	project_name: string;
+	project_id: string;
 }

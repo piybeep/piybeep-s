@@ -30,5 +30,5 @@ export class Review {
 
 	@ApiProperty()
 	@Column()
-	project_name?: string;
+	project_id?: string;
 }
