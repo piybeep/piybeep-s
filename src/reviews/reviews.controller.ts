@@ -1,10 +1,25 @@
-import { Controller, Get, Post, Body, Param, Query } from '@nestjs/common';
-import { ApiCreatedResponse, ApiOkResponse, ApiTags } from '@nestjs/swagger';
+import {
+	Controller,
+	Get,
+	Post,
+	Body,
+	Param,
+	Query,
+	Delete,
+	Put,
+} from '@nestjs/common';
+import {
+	ApiCreatedResponse,
+	ApiOkResponse,
+	ApiResponse,
+	ApiTags,
+} from '@nestjs/swagger';
 
 import { ReviewsService } from './reviews.service';
 import { CreateReviewDto } from './dto/create-review.dto';
 import { FindAllReviewsDto } from './dto/findAll-reviews.dto';
 import { Review } from './entities/review.entity';
+import { UpdateReviewDto } from './dto/update-review.dto';
 
 @ApiTags('Reviews')
 @Controller('reviews')
@@ -27,5 +42,17 @@ export class ReviewsController {
 	@Get(':id')
 	findOne(@Param('id') id: string) {
 		return this.reviewsService.findOne(id);
+	}
+
+	@ApiOkResponse({ type: Review })
+	@Delete(':id')
+	delete(@Param('id') id: string) {
+		return this.reviewsService.delete(id);
+	}
+
+	@ApiOkResponse({ type: Review })
+	@Put(':id')
+	update(@Param('id') id: string, @Body() payload: UpdateReviewDto){
+		return this.reviewsService.update(id, payload);
 	}
 }
