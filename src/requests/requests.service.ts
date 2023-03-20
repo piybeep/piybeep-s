@@ -1,12 +1,14 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, HttpException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { Repository, UpdateResult } from 'typeorm';
 
 import { MailService } from '../mail/mail.service';
 
 import { Request } from './entities/request.entity';
 import { CreateRequestDto } from './dto/create-request.dto';
 import { FindAllRequestsDto } from './dto/findAll-requests.dto';
+import { requestStatuses } from './dto/requestStatuses.dto';
+import { UpdateRequestDto } from './dto/update-request.dto';
 
 @Injectable()
 export class RequestsService {
@@ -42,5 +44,38 @@ export class RequestsService {
 				},
 			),
 		});
+	}
+
+	async updateStatus(id: string, status: string) {
+		try {
+			if (!requestStatuses.includes(status)) {
+				throw new Error(
+					'Invlaid status\nUse this statuses: "new", "in process", "completed"',
+				);
+			} else {
+				await this.requestsRepos.update(id, { status });
+				return { message: 'OK' };
+			}
+		} catch (err) {
+			console.log('requests.service.updateStatus', err);
+			return new Error('Server error');
+		}
+	}
+
+	async update(id: string, options: UpdateRequestDto) {
+		try {
+			const result: UpdateResult = await this.requestsRepos.update(
+				id,
+				options,
+			);
+			if (result.affected > 0) {
+				return { message: 'OK' };
+			} else {
+				return Error('Invalid id param');
+			}
+		} catch (err) {
+			console.log('requests.service.update', err);
+			return new Error('Server error');
+		}
 	}
 }

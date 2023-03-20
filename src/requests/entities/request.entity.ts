@@ -4,7 +4,9 @@ import {
 	Entity,
 	PrimaryGeneratedColumn,
 	CreateDateColumn,
+	ManyToMany,
 } from 'typeorm';
+
 
 @Entity()
 export class Request {
@@ -22,7 +24,11 @@ export class Request {
 
 	@ApiProperty()
 	@Column('varchar')
-	product: string;
+	status: string;
+
+	// @ManyToMany(() => Service, {eager: true})
+	// @JoinTable()
+	// select: Service[];
 
 	@ApiProperty()
 	@CreateDateColumn()

@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Query } from '@nestjs/common';
+import { Controller, Get, Post, Body, Query, Param, Put } from '@nestjs/common';
 import { ApiCreatedResponse, ApiOkResponse, ApiTags } from '@nestjs/swagger';
 
 import { RequestsService } from './requests.service';
@@ -21,5 +21,11 @@ export class RequestsController {
 	@Get()
 	findAll(@Query() options: FindAllRequestsDto) {
 		return this.requestsService.findAll(options);
+	}
+
+	@ApiOkResponse({ type: Request })
+	@Put(':id')
+	updateStatus(@Param('id') id: string, @Body() status: string) {
+		return this.requestsService.updateStatus(id, status);
 	}
 }
