@@ -11,7 +11,7 @@ import {
 import { ServiceTypes } from './servicesTypes.enum';
 
 export class CreateServiceDto {
-	@ApiProperty()
+	@ApiProperty({required: true})
 	@IsString()
 	@IsNotEmpty()
 	name: string;
@@ -33,8 +33,9 @@ export class CreateServiceDto {
 	discount?: number;
 
 	@ApiProperty()
-	@IsEnum(ServiceTypes)
-	type: ServiceTypes;
+	@IsInt()
+	@IsPositive()
+	typeId: number;
 
 	@ApiPropertyOptional()
 	@IsBoolean()

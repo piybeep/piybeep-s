@@ -2,12 +2,13 @@ import {
 	Column,
 	CreateDateColumn,
 	Entity,
+	ManyToOne,
 	PrimaryGeneratedColumn,
 	UpdateDateColumn,
 } from 'typeorm';
-import { ServiceTypes } from '../dto/servicesTypes.enum';
+import { ServiceTypes } from './service-types.entity';
 
-@Entity('Services')
+@Entity('services')
 export class Service {
 	@PrimaryGeneratedColumn('uuid')
 	id: string;
@@ -24,9 +25,6 @@ export class Service {
 	@Column({ nullable: true })
 	discount: number;
 
-	@Column({ type: 'enum', enum: ServiceTypes, default: ServiceTypes.Product })
-	type: ServiceTypes;
-
 	@Column({ default: false })
 	isHide: boolean;
 
@@ -38,4 +36,7 @@ export class Service {
 
 	@UpdateDateColumn()
 	updatedAt: Date;
+
+	@ManyToOne(() => ServiceTypes, (type) => type.services)
+	type: ServiceTypes;
 }

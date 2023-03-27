@@ -1,5 +1,5 @@
-import { Repository } from 'typeorm';
-import { Injectable } from '@nestjs/common';
+import { In, Repository } from 'typeorm';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 
 import { Service } from './entities/service.entity';
@@ -13,33 +13,84 @@ export class ServicesService {
 		@InjectRepository(Service)
 		private readonly ServiceRepos: Repository<Service>,
 	) {}
-	create(payload: CreateServiceDto) {
+
+	async create(payload: CreateServiceDto) {
 		try {
-			return this.ServiceRepos.create(payload);
+			const _service = this.ServiceRepos.create(payload);
+			return this.ServiceRepos.save(_service);
 		} catch (err) {
 			console.log('Services.create', err);
 			return new Error('Server error');
 		}
 	}
 
-	findAll(options: FindOptions) {
+	async findAll(options: FindOptions) {
 		try {
-      console.log(options)
+			const hideOpts = [false];
+			const availableOpts = [true];
+
+			if (options.isHide === 'true') {
+				hideOpts.push(true);
+			}
+			if (options.isNotAvailable === 'true') {
+				availableOpts.push(false);
+			}
+			return await this.ServiceRepos.find({
+				where: {
+					isHide: In(hideOpts),
+					isAvailable: In(availableOpts),
+				},
+				order: {
+					[options.sort_field !== undefined
+						? options.sort_field
+						: 'name']:
+						options.sort_direction !== undefined
+							? options.sort_direction
+							: 'ASC',
+				},
+			});
 		} catch (err) {
 			console.log('Services.findAll', err);
 			return Error('Server error');
 		}
 	}
 
-	findOne(id: number) {
-		return `This action returns a #${id} service`;
+	async findOne(id: string) {
+		const result: Service = await this.ServiceRepos.findOneBy({ id });
+		return result === null ? 'null' : result;
 	}
 
-	update(id: number, updateServiceDto: UpdateServiceDto) {
-		return `This action updates a #${id} service`;
+	async update(id: string, updateServiceDto: UpdateServiceDto) {
+		try {
+			const entity: Service = await this.ServiceRepos.findOneBy({ id });
+			if (entity === null) {
+				throw new NotFoundException(`Service not found `);
+			} else {
+				const result = await this.ServiceRepos.update(
+					{ id },
+					updateServiceDto,
+				);
+				if (result.affected === 0) {
+					throw new Error('update failed');
+				} else {
+					return { message: 'OK' };
+				}
+			}
+		} catch (err) {
+			return err.response;
+		}
 	}
 
-	remove(id: number) {
-		return `This action removes a #${id} service`;
+	async remove(id: string) {
+		try {
+			const service = await this.ServiceRepos.findOneBy({ id });
+			if (!service) {
+				throw new NotFoundException(`Service not found`);
+			}
+			await this.ServiceRepos.remove(service);
+			return { message: 'OK' };
+		} catch (err) {
+			return err.response;
+		}
 	}
 }

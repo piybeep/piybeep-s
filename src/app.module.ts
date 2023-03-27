@@ -71,6 +71,8 @@ import { ServicesModule } from './services/services.module';
 		ServicesModule,
 	],
 	controllers: [AppController],
-	providers: [],
+	providers: [
+	
+	  ]
 })
 export class AppModule {}
