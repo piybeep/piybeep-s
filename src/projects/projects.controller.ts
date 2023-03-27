@@ -8,10 +8,14 @@ import {
 	Put,
 	HttpStatus,
 	HttpException,
+	Query,
+	BadRequestException,
 } from '@nestjs/common';
 import { ProjectsService } from './projects.service';
 import { CreateProjectDto } from './dto/create-project.dto';
 import { UpdateProjectDto } from './dto/update-project.dto';
+import { FindAllProjectsDto } from './dto/find-all-projects.dto';
+import { isEmpty } from 'class-validator';
 
 @Controller('projects')
 export class ProjectsController {
@@ -23,8 +27,8 @@ export class ProjectsController {
 	}
 
 	@Get()
-	findAll() {
-		return this.projectsService.findAll();
+	findAll(@Query() query: FindAllProjectsDto) {
+		return this.projectsService.findAll(query.take, query.skip);
 	}
 
 	@Get(':id')
@@ -37,6 +41,9 @@ export class ProjectsController {
 		@Param('id') id: string,
 		@Body() updateProjectDto: UpdateProjectDto,
 	) {
+		if(isEmpty(updateProjectDto)){
+			throw new BadRequestException('body must be not empty')
+		}
 		return this.projectsService.update(id, updateProjectDto);
 	}
 

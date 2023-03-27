@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { CreateProjectDto } from './dto/create-project.dto';
+import { FindAllProjectsDto } from './dto/find-all-projects.dto';
 import { UpdateProjectDto } from './dto/update-project.dto';
 import { Project } from './entities/project.entity';
 
@@ -16,7 +17,6 @@ export class ProjectsService {
 		try {
 			const created_project =
 				this.projectRepository.save(createProjectDto);
-			console.log(created_project);
 			return created_project;
 		} catch (err) {
 			console.log('project.service.create', err);
@@ -24,8 +24,8 @@ export class ProjectsService {
 		}
 	}
 
-	findAll() {
-		return this.projectRepository.findAndCount({});
+	findAll(take: number, skip: number) {
+		return this.projectRepository.findAndCount({take, skip});
 	}
 
 	findOne(id: string) {

@@ -3,6 +3,7 @@ import {
 	CreateDateColumn,
 	PrimaryGeneratedColumn,
 	Entity,
+	UpdateDateColumn,
 } from 'typeorm';
 import { ApiProperty } from '@nestjs/swagger';
 
@@ -49,6 +50,6 @@ export class Project {
 	createdAt: Date;
 
 	@ApiProperty()
-	@CreateDateColumn()
+	@UpdateDateColumn()
 	updatedAt: Date;
 }
