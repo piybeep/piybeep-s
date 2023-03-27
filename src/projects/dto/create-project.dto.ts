@@ -1,5 +1,5 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
-import { IsNotEmpty, IsOptional, IsString } from 'class-validator';
+import { IsNotEmpty, IsOptional, IsString, IsUrl } from 'class-validator';
 import { Transform, TransformFnParams } from 'class-transformer';
 
 export class CreateProjectDto {
@@ -26,6 +26,7 @@ export class CreateProjectDto {
 	@IsOptional()
 	@IsString()
 	@IsNotEmpty({ message: 'поле ссылки не должно быть пустым' })
+	@IsUrl()
 	@Transform(({ value }: TransformFnParams) => value?.trim())
 	link?: string;
 
