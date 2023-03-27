@@ -5,6 +5,7 @@ import { RequestsService } from './requests.service';
 import { CreateRequestDto } from './dto/create-request.dto';
 import { FindAllRequestsDto } from './dto/findAll-requests.dto';
 import { Request } from './entities/request.entity';
+import { UpdateRequestDto } from './dto/update-request.dto';
 
 @ApiTags('Requests')
 @Controller('requests')
@@ -25,7 +26,8 @@ export class RequestsController {
 
 	@ApiOkResponse({ type: Request })
 	@Put(':id')
-	updateStatus(@Param('id') id: string, @Body() status: string) {
-		return this.requestsService.updateStatus(id, status);
+	updateStatus(@Param('id') id: string, @Body() payload: UpdateRequestDto) {
+		return this.requestsService.update(id, payload);
 	}
+
 }

@@ -37,20 +37,22 @@ export class MailService {
 				`[${new Date().toLocaleString()}] sendTelegramNotification: token is undefined`,
 			);
 
-		const message =
+		let message =
 			'<b>Новая заявка</b>%0A%0AИмя: ' +
 			encodeURIComponent(payload.name) +
 			'%0AСвязь: ' +
 			encodeURIComponent(payload.contact) +
-			'%0AВыбор: ' +
-			encodeURIComponent(payload.select) +
-			'%0A%0A<code>' +
+			'%0AВыбор: ';
+		for (const i of payload.select) {
+			message += encodeURIComponent(i) + '%0A%0A<code>';
+		}
+
+		message +=
 			encodeURIComponent(
 				typeof payload.id == 'number'
 					? payload.id
 					: payload.id.split('-')[0],
-			) +
-			'</code>';
+			) + '</code>';
 
 		to.map((target) =>
 			https

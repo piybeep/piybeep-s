@@ -1,12 +1,17 @@
 import { ApiProperty } from '@nestjs/swagger';
+import { Service } from './../../services/entities/service.entity';
 import {
 	Column,
 	Entity,
 	PrimaryGeneratedColumn,
 	CreateDateColumn,
 	ManyToMany,
+	JoinTable,
+	UpdateDateColumn,
+	ManyToOne,
+	JoinColumn,
 } from 'typeorm';
-
+import { RequestStatuses } from './request.statuses.entity';
 
 @Entity()
 export class Request {
@@ -23,14 +28,23 @@ export class Request {
 	contact: string;
 
 	@ApiProperty()
-	@Column('varchar')
-	status: string;
+	@Column()
+	statusId: number;
 
-	// @ManyToMany(() => Service, {eager: true})
-	// @JoinTable()
-	// select: Service[];
-
+	
 	@ApiProperty()
 	@CreateDateColumn()
 	createdAt: Date;
+
+	@ApiProperty()
+	@UpdateDateColumn()
+	updatedAt: Date;
+
+	@ManyToOne(() => RequestStatuses, (status) => status.requests)
+	@JoinColumn({name: 'statusId'})
+	status: RequestStatuses;
+	
+	@ManyToMany(() => Service, { eager: true })
+	@JoinTable()
+	select: Service[];
 }

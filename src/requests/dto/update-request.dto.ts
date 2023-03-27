@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { TransformFnParams, Transform, Type } from 'class-transformer';
-import { IsString, IsNotEmpty, IsOptional, IsArray, ValidateNested, Validate } from 'class-validator';
+import { TransformFnParams, Transform } from 'class-transformer';
+import { IsString, IsNotEmpty, IsOptional, IsArray, IsInt, IsPositive } from 'class-validator';
 
 export class UpdateRequestDto {
 	@ApiProperty()
@@ -17,6 +17,13 @@ export class UpdateRequestDto {
 	@IsOptional()
 	contact?: string;
 
+
+	@ApiProperty()
+	@IsInt()
+	@IsPositive()
+	@IsOptional()
+	statusId: number
+	
 	@ApiProperty()
 	@IsOptional()
 	@IsArray()
