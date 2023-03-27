@@ -55,7 +55,7 @@ export class ReviewsService {
 				payload,
 			);
 			if (result.affected > 0) {
-				return new HttpException('OK', 200);
+				return await this.reviewsRepos.findOneBy({ id });
 			} else {
 				return new HttpException('no such review', 404);
 			}

@@ -11,7 +11,6 @@ import {
 import {
 	ApiCreatedResponse,
 	ApiOkResponse,
-	ApiResponse,
 	ApiTags,
 } from '@nestjs/swagger';
 
