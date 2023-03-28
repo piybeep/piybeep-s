@@ -25,7 +25,6 @@ import { FileInterceptor } from '@nestjs/platform-express';
 import { FilesService } from './files.service';
 import { File } from './entities/file.entity';
 import { FindAllFilesDto } from './dto/findAll-files.dto';
-import { join } from 'path';
 
 @ApiTags('Files')
 @Controller('files')
@@ -59,8 +58,8 @@ export class FilesController {
 
 	@ApiOkResponse({ type: File, isArray: true })
 	@Get()
-	findAll(@Query() oprions: FindAllFilesDto) {
-		return this.filesService.findAll(oprions);
+	findAll(@Query() options: FindAllFilesDto) {
+		return this.filesService.findAll(options);
 	}
 
 	@ApiParam({
