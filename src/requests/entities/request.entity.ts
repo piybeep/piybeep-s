@@ -28,10 +28,9 @@ export class Request {
 	contact: string;
 
 	@ApiProperty()
-	@Column()
+	@Column({type: 'uuid', default: 1})
 	statusId: number;
 
-	
 	@ApiProperty()
 	@CreateDateColumn()
 	createdAt: Date;
@@ -44,7 +43,7 @@ export class Request {
 	@JoinColumn({name: 'statusId'})
 	status: RequestStatuses;
 	
-	@ManyToMany(() => Service, { eager: true })
-	@JoinTable()
-	select: Service[];
+	@ManyToMany(() => Service, { eager: true, cascade: true })
+	@JoinTable({name: 'requests-services'})
+	services: Service[];
 }

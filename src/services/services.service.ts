@@ -24,6 +24,10 @@ export class ServicesService {
 		}
 	}
 
+	async findAllInArray(arrayUUID: string[]) {
+		return await this.ServiceRepos.find({ where: { id: In(arrayUUID) } });
+	}
+
 	async findAll(options: FindOptions) {
 		try {
 			const hideOpts = [false];

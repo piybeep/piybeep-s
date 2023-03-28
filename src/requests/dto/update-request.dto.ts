@@ -27,5 +27,5 @@ export class UpdateRequestDto {
 	@ApiProperty()
 	@IsOptional()
 	@IsArray()
-	select?: string[];
+	services?: string[];
 }
