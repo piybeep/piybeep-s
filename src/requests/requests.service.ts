@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { In, Repository, UpdateResult } from 'typeorm';
 
@@ -10,11 +10,13 @@ import { FindAllRequestsDto } from './dto/findAll-requests.dto';
 import { UpdateRequestDto } from './dto/update-request.dto';
 import { Service } from 'src/services/entities/service.entity';
 import { ServicesService } from './../services/services.service';
+import { RequestStatuses } from './entities/request.statuses.entity';
 
 @Injectable()
 export class RequestsService {
 	constructor(
 		@InjectRepository(Request) private requestsRepos: Repository<Request>,
+		@InjectRepository(RequestStatuses) private requestStatusesRepos: Repository<RequestStatuses>,
 		private mailService: MailService,
 		private servicesService: ServicesService,
 	) {}
@@ -62,30 +64,37 @@ export class RequestsService {
 		});
 	}
 
-	findOne(id: string) {
-		return this.requestsRepos.findOneBy({ id });
+	async findOne(id: string) {
+		return await this.requestsRepos.findOneBy({ id });
 	}
-	async update(id: string, options: UpdateRequestDto) {
-		try {
-			let services: Service[];
 
-			const result: UpdateResult = await this.requestsRepos.update(
-				id,
-				options
-			);
-			if (!!options.services) {
-				services = await this.servicesService.findAllInArray(
-					options.services,
-				);
-			}
-			if (result.affected > 0) {
-				return await this.findOne(id);
-			} else {
-				return Error('Invalid id param');
-			}
-		} catch (err) {
-			console.log('requests.service.update', err);
-			return new Error('Server error');
+	async update(id: string, options: UpdateRequestDto) {
+		const request: Request = await this.requestsRepos.findOneBy({ id });
+		if (!request) {
+			throw new BadRequestException(`request ${id} not found`);
 		}
+		const { services, ..._opts } = options;
+
+		const saveObj: Request = { ...request, ..._opts };
+		if (!!options.services) {
+			const _services = await this.servicesService.findAllInArray(
+				services,
+			);
+			if (!_services || _services.length === 0) {
+				throw new BadRequestException('invalid services param');
+			}
+			saveObj.services = _services
+		}
+		if(!!options.statusId){
+			const status = await this.getServiceStatus(options.statusId)
+			if(!status) throw new BadRequestException('invalid statusId param')
+			saveObj.status = status
+		}
+
+		return await this.requestsRepos.save(saveObj);
+	}
+
+	async getServiceStatus(id: number){
+		return await this.requestStatusesRepos.findOneBy({id})
 	}
 }

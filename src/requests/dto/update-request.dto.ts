@@ -22,10 +22,10 @@ export class UpdateRequestDto {
 	@IsInt()
 	@IsPositive()
 	@IsOptional()
-	statusId: number
+	statusId?: number
 	
 	@ApiProperty()
 	@IsOptional()
 	@IsArray()
-	services?: string[];
+	services?: [string];
 }

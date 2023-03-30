@@ -39,7 +39,7 @@ export class Request {
 	@UpdateDateColumn()
 	updatedAt: Date;
 
-	@ManyToOne(() => RequestStatuses, (status) => status.requests)
+	@ManyToOne(() => RequestStatuses, (status) => status.requests, {eager: true})
 	@JoinColumn({name: 'statusId'})
 	status: RequestStatuses;
 	
