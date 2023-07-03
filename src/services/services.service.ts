@@ -26,15 +26,11 @@ export class ServicesService {
 
 	async findAll(options: FindOptions) {
 		try {
-			const hideOpts = [false];
-			const availableOpts = [true];
+			const hideOpts =
+				options.isHide === 'true' ? [false, true] : [false];
+			const availableOpts =
+				options.isNotAvailable === 'true' ? [false, true] : [true];
 
-			if (options.isHide === 'true') {
-				hideOpts.push(true);
-			}
-			if (options.isNotAvailable === 'true') {
-				availableOpts.push(false);
-			}
 			return await this.ServiceRepos.find({
 				where: {
 					isHide: In(hideOpts),
@@ -56,8 +52,7 @@ export class ServicesService {
 	}
 
 	async findOne(id: string) {
-		const result: Service = await this.ServiceRepos.findOneBy({ id });
-		return result === null ? 'null' : result;
+		return await this.ServiceRepos.findOneBy({ id });
 	}
 
 	async update(id: string, updateServiceDto: UpdateServiceDto) {
@@ -73,7 +68,7 @@ export class ServicesService {
 				if (result.affected === 0) {
 					throw new Error('update failed');
 				} else {
-					return { message: 'OK' };
+					return await this.ServiceRepos.findOneBy({ id });
 				}
 			}
 		} catch (err) {
