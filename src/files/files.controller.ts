@@ -7,6 +7,9 @@ import {
 	HttpException,
 	HttpStatus,
 	UploadedFile,
+	Delete,
+	ParseUUIDPipe,
+	Param,
 } from '@nestjs/common';
 import {
 	ApiBody,
@@ -14,6 +17,8 @@ import {
 	ApiTags,
 	ApiCreatedResponse,
 	ApiOkResponse,
+	ApiResponse,
+	ApiParam,
 } from '@nestjs/swagger';
 import { FileInterceptor } from '@nestjs/platform-express';
 
@@ -53,7 +58,17 @@ export class FilesController {
 
 	@ApiOkResponse({ type: File, isArray: true })
 	@Get()
-	findAll(@Query() oprions: FindAllFilesDto) {
-		return this.filesService.findAll(oprions);
+	findAll(@Query() options: FindAllFilesDto) {
+		return this.filesService.findAll(options);
+	}
+
+	@ApiParam({
+		name: 'id',
+		description: 'Id файла',
+	})
+	@ApiResponse({ status: 200, description: 'OK' })
+	@Delete(':id')
+	deleteFile(@Param('id', ParseUUIDPipe) id: string) {
+		return this.filesService.deleteFromDB(id)
 	}
 }

@@ -19,5 +19,5 @@ export class UpdateReviewDto extends PartialType(CreateReviewDto) {
 	@IsOptional()
 	@IsString()
 	@IsNotEmpty()
-	project_name: string;
+	project_id: string;
 }
