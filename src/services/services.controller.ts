@@ -1,27 +1,24 @@
 import {
-	Controller,
-	Get,
-	Post,
 	Body,
-	Patch,
-	Param,
+	Controller,
 	Delete,
-	Query,
+	Get,
+	Param,
 	ParseUUIDPipe,
+	Post,
 	Put,
-	UseFilters,
+	Query,
 } from '@nestjs/common';
-import { ServicesService } from './services.service';
-import { CreateServiceDto } from './dto/create-service.dto';
-import { UpdateServiceDto } from './dto/update-service.dto';
-import { FindOptions } from './dto/findOptions.dto';
 import {
 	ApiBody,
 	ApiParam,
-	ApiQuery,
 	ApiResponse,
 	ApiTags,
 } from '@nestjs/swagger';
+import { CreateServiceDto } from './dto/create-service.dto';
+import { FindOptions } from './dto/findOptions.dto';
+import { UpdateServiceDto } from './dto/update-service.dto';
+import { ServicesService } from './services.service';
 
 @ApiTags('Services')
 @Controller('services')
