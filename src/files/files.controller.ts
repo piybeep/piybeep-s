@@ -69,6 +69,6 @@ export class FilesController {
 	@ApiResponse({ status: 200, description: 'OK' })
 	@Delete(':id')
 	deleteFile(@Param('id', ParseUUIDPipe) id: string) {
-		return this.filesService.deleteFromDB(id)
+		return this.filesService.deleteFromDB(id);
 	}
 }

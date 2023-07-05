@@ -41,8 +41,8 @@ export class ProjectsController {
 		@Param('id') id: string,
 		@Body() updateProjectDto: UpdateProjectDto,
 	) {
-		if(isEmpty(updateProjectDto)){
-			throw new BadRequestException('body must be not empty')
+		if (isEmpty(updateProjectDto)) {
+			throw new BadRequestException('body must be not empty');
 		}
 		return this.projectsService.update(id, updateProjectDto);
 	}
@@ -51,7 +51,7 @@ export class ProjectsController {
 	async remove(@Param('id') id: string) {
 		const { affected } = await this.projectsService.remove(id);
 		if (affected > 0) {
-			return {message: "OK"} //new HttpException('OK',HttpStatus.OK);
+			return { message: 'OK' }; //new HttpException('OK',HttpStatus.OK);
 		} else {
 			throw new HttpException('Error on delete', HttpStatus.BAD_REQUEST);
 		}

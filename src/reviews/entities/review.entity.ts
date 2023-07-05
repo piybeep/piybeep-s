@@ -7,7 +7,7 @@ import {
 } from 'typeorm';
 import { ApiProperty } from '@nestjs/swagger';
 import { Entity } from 'typeorm';
-import { Project } from './../../projects/entities/project.entity';
+import { Project } from '../../projects/entities/project.entity';
 
 @Entity()
 export class Review {
@@ -34,6 +34,6 @@ export class Review {
 	@Column()
 	project_id?: string;
 
-	@ManyToOne(()=>Project, (project)=>project.reviews)
-	project: Project
+	@ManyToOne(() => Project, (project) => project.reviews)
+	project: Project;
 }
