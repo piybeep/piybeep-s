@@ -8,11 +8,7 @@ import {
 	Delete,
 	Put,
 } from '@nestjs/common';
-import {
-	ApiCreatedResponse,
-	ApiOkResponse,
-	ApiTags,
-} from '@nestjs/swagger';
+import { ApiCreatedResponse, ApiOkResponse, ApiTags } from '@nestjs/swagger';
 
 import { ReviewsService } from './reviews.service';
 import { CreateReviewDto } from './dto/create-review.dto';
@@ -51,7 +47,7 @@ export class ReviewsController {
 
 	@ApiOkResponse({ type: Review })
 	@Put(':id')
-	update(@Param('id') id: string, @Body() payload: UpdateReviewDto){
+	update(@Param('id') id: string, @Body() payload: UpdateReviewDto) {
 		return this.reviewsService.update(id, payload);
 	}
 }

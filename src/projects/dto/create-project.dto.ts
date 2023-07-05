@@ -15,14 +15,14 @@ export class CreateProjectDto {
 	@Transform(({ value }: TransformFnParams) => value?.trim())
 	customer: string;
 
-    @ApiPropertyOptional()
+	@ApiPropertyOptional()
 	@IsOptional()
 	@IsString()
 	@IsNotEmpty({ message: 'поле доступа не должно быть пустым' })
 	@Transform(({ value }: TransformFnParams) => value?.trim())
 	access?: string;
 
-    @ApiPropertyOptional()
+	@ApiPropertyOptional()
 	@IsOptional()
 	@IsString()
 	@IsNotEmpty({ message: 'поле ссылки не должно быть пустым' })
@@ -36,8 +36,8 @@ export class CreateProjectDto {
 	@IsNotEmpty({ message: 'задача проекта не должна быть пустой' })
 	@Transform(({ value }: TransformFnParams) => value?.trim())
 	task?: string;
-	
-    @ApiPropertyOptional()
+
+	@ApiPropertyOptional()
 	@IsOptional()
 	@IsString()
 	@IsNotEmpty({ message: 'поле о компании не должно быть пустым' })
