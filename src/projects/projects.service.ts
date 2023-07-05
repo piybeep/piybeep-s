@@ -24,7 +24,7 @@ export class ProjectsService {
 	}
 
 	findAll(take: number, skip: number) {
-		return this.projectRepository.findAndCount({take, skip});
+		return this.projectRepository.findAndCount({ take, skip });
 	}
 
 	findOne(id: string) {
@@ -36,6 +36,6 @@ export class ProjectsService {
 	}
 
 	remove(id: string) {
-    return this.projectRepository.delete({id})
-  }
+		return this.projectRepository.delete({ id });
+	}
 }
