@@ -1,15 +1,12 @@
-import { ApiProperty, PartialType, ApiPropertyOptional } from '@nestjs/swagger';
-import { CreateServiceDto } from './create-service.dto';
+import { ApiPropertyOptional } from '@nestjs/swagger';
 import {
 	IsString,
 	IsNotEmpty,
 	IsInt,
 	IsPositive,
 	IsOptional,
-	IsEnum,
 	IsBoolean,
 } from 'class-validator';
-import { ServiceTypes } from './servicesTypes.enum';
 
 export class UpdateServiceDto {
 	@ApiPropertyOptional()

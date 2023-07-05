@@ -5,10 +5,8 @@ import {
 	IsPositive,
 	IsString,
 	IsOptional,
-	IsEnum,
 	IsBoolean,
 } from 'class-validator';
-import { ServiceTypes } from './servicesTypes.enum';
 
 export class CreateServiceDto {
 	@ApiProperty({required: true})
