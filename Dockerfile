@@ -9,13 +9,13 @@ CMD [ "yarn", "run", "start:dev" ]
 FROM node:lts-alpine as dependencies
 WORKDIR /app
 COPY package*.json ./
-RUN npm i -s
+RUN yarn -s
 
 FROM node:lts-alpine as builder
 WORKDIR /app
 COPY . .
 COPY --from=dependencies /app/node_modules ./node_modules
-RUN npm run build
+RUN yarn run build
 
 FROM node:lts-alpine as running
 WORKDIR /app
@@ -25,4 +25,4 @@ COPY --from=builder /app/.env ./
 COPY --from=builder /app/dist ./dist
 COPY --from=builder /app/node_modules ./node_modules
 EXPOSE ${API_PORT}
-CMD [ "npm", "run", "start:prod" ]
+CMD [ "yarn", "run", "start:dev" ]
