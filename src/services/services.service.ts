@@ -7,7 +7,7 @@ import {
 import { InjectRepository } from '@nestjs/typeorm';
 import { In, Repository } from 'typeorm';
 
-import { CreateServiceDto, FindOptions, UpdateServiceDto } from './dto/index';
+import { CreateServiceDto, FindOptions, UpdateServiceDto } from './dto';
 import { ServiceTypes } from './entities/service-types.entity';
 import { Service } from './entities/service.entity';
 

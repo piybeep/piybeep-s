@@ -18,12 +18,15 @@ import {
 	ApiResponse,
 	ApiTags,
 } from '@nestjs/swagger';
-import { CreateServiceDto } from './dto/create-service.dto';
-import { FindOptions } from './dto/findOptions.dto';
-import { UpdateServiceDto } from './dto/update-service.dto';
+import {
+	CreateServiceDto,
+	CreateServiceTypeDto,
+	FindOptions,
+	UpdateServiceDto,
+} from './dto';
+import { ServiceTypes } from './entities/service-types.entity';
 import { Service } from './entities/service.entity';
 import { ServicesService } from './services.service';
-import { ServiceTypes } from './entities/service-types.entity';
 
 @ApiTags('Services')
 @Controller('services')
@@ -32,6 +35,7 @@ export class ServicesController {
 
 	@ApiOperation({ summary: 'Создание типа услуги' })
 	@ApiResponse({ status: 201, type: ServiceTypes })
+	@ApiBody({ type: CreateServiceTypeDto })
 	@Post('types')
 	async createTypes(@Body('name') name: string) {
 		return await this.servicesService.createTypes(name);
@@ -57,32 +61,40 @@ export class ServicesController {
 	async create(@Body() payload: CreateServiceDto) {
 		return await this.servicesService.create(payload);
 	}
-
+	@ApiOperation({
+		summary: 'Поиск всех услуг с фильтрацией, сортировкой и пагинацией',
+	})
+	@ApiResponse({ status: 200, type: Service, isArray: true })
 	@Get()
 	@UsePipes(new ValidationPipe({ transform: true }))
 	async findAll(@Query() options: FindOptions) {
 		return await this.servicesService.findAll(options);
 	}
 
+	@ApiOperation({ summary: 'Получение услуги по id' })
+	@ApiResponse({ status: 200, type: Service })
 	@ApiParam({
 		name: 'id',
 		description: 'id услуги',
 	})
 	@Get(':id')
-	findOne(@Param('id', ParseUUIDPipe) id: string) {
-		return this.servicesService.findOne(id);
+	async findOne(@Param('id', ParseUUIDPipe) id: string) {
+		return await this.servicesService.findOne(id);
 	}
 
+	@ApiOperation({ summary: 'Обновление услуги' })
+	@ApiResponse({ status: 200, type: Service })
 	@ApiBody({ type: UpdateServiceDto })
 	@ApiParam({ name: 'id', description: 'id услуги' })
 	@Put(':id')
-	update(
+	async update(
 		@Param('id', ParseUUIDPipe) id: string,
 		@Body() updateServiceDto: UpdateServiceDto,
 	) {
-		return this.servicesService.update(id, updateServiceDto);
+		return await this.servicesService.update(id, updateServiceDto);
 	}
-
+	@ApiOperation({ summary: 'Удаление услуги' })
+	@ApiResponse({ status: 200, description: 'OK' })
 	@ApiParam({ name: 'id', description: 'id услуги' })
 	@Delete(':id')
 	async remove(@Param('id', ParseUUIDPipe) id: string) {
