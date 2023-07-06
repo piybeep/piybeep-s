@@ -1,15 +1,15 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { In, Repository, UpdateResult } from 'typeorm';
+import { Repository } from 'typeorm';
 
 import { MailService } from '../mail/mail.service';
 
-import { Request } from './entities/request.entity';
+import { Service } from 'src/services/entities/service.entity';
+import { ServicesService } from './../services/services.service';
 import { CreateRequestDto } from './dto/create-request.dto';
 import { FindAllRequestsDto } from './dto/findAll-requests.dto';
 import { UpdateRequestDto } from './dto/update-request.dto';
-import { Service } from 'src/services/entities/service.entity';
-import { ServicesService } from './../services/services.service';
+import { Request } from './entities/request.entity';
 import { RequestStatuses } from './entities/request.statuses.entity';
 
 @Injectable()

@@ -1,11 +1,11 @@
-import { Controller, Get, Post, Body, Query, Param, Put } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Put, Query } from '@nestjs/common';
 import { ApiCreatedResponse, ApiOkResponse, ApiTags } from '@nestjs/swagger';
 
-import { RequestsService } from './requests.service';
 import { CreateRequestDto } from './dto/create-request.dto';
 import { FindAllRequestsDto } from './dto/findAll-requests.dto';
-import { Request } from './entities/request.entity';
 import { UpdateRequestDto } from './dto/update-request.dto';
+import { Request } from './entities/request.entity';
+import { RequestsService } from './requests.service';
 
 @ApiTags('Requests')
 @Controller('requests')

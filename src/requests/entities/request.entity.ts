@@ -1,16 +1,16 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { Service } from './../../services/entities/service.entity';
 import {
 	Column,
-	Entity,
-	PrimaryGeneratedColumn,
 	CreateDateColumn,
-	ManyToMany,
-	JoinTable,
-	UpdateDateColumn,
-	ManyToOne,
+	Entity,
 	JoinColumn,
+	JoinTable,
+	ManyToMany,
+	ManyToOne,
+	PrimaryGeneratedColumn,
+	UpdateDateColumn,
 } from 'typeorm';
+import { Service } from './../../services/entities/service.entity';
 import { RequestStatuses } from './request.statuses.entity';
 
 @Entity()
