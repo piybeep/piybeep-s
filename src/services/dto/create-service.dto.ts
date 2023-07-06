@@ -1,14 +1,13 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import {
+	IsBoolean,
 	IsInt,
 	IsNotEmpty,
+	IsOptional,
 	IsPositive,
 	IsString,
-	IsOptional,
-	IsEnum,
-	IsBoolean,
+	IsUUID
 } from 'class-validator';
-import { ServiceTypes } from './servicesTypes.enum';
 
 export class CreateServiceDto {
 	@ApiProperty({required: true})
@@ -33,9 +32,9 @@ export class CreateServiceDto {
 	discount?: number;
 
 	@ApiProperty()
-	@IsInt()
-	@IsPositive()
-	typeId: number;
+	@IsUUID()
+	@IsString()
+	typeId: string;
 
 	@ApiPropertyOptional()
 	@IsBoolean()

@@ -7,8 +7,6 @@ services:
       POSTGRES_USER: ${TYPEORM_USER}
       POSTGRES_PASSWORD: ${TYPEORM_PASSWORD}
       POSTGRES_DB: ${TYPEORM_DB}
-    ports:
-      - 5432:5432
     volumes:
       - ./pgdata:/var/lib/postgresql/data
     ports:

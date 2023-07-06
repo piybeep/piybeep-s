@@ -71,7 +71,6 @@ import { ProjectsModule } from './projects/projects.module';
 		StaticModule,
 		ServicesModule,
 		ProjectsModule,
-
 	],
 	controllers: [AppController],
 	providers: [

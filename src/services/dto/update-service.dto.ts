@@ -1,55 +1,53 @@
-import { ApiProperty, PartialType, ApiPropertyOptional } from '@nestjs/swagger';
-import { CreateServiceDto } from './create-service.dto';
+import { ApiPropertyOptional } from '@nestjs/swagger';
 import {
 	IsString,
 	IsNotEmpty,
 	IsInt,
 	IsPositive,
 	IsOptional,
-	IsEnum,
 	IsBoolean,
+	IsUUID,
 } from 'class-validator';
-import { ServiceTypes } from './servicesTypes.enum';
 
 export class UpdateServiceDto {
 	@ApiPropertyOptional()
 	@IsString()
     @IsOptional()
 	@IsNotEmpty()
-	name?: string;
+	name: string;
 
 	@ApiPropertyOptional()
     @IsOptional()
 	@IsString()
 	@IsNotEmpty()
-	description?: string;
+	description: string;
 
 	@ApiPropertyOptional()
     @IsOptional()
 	@IsInt()
 	@IsPositive()
-	price?: number;
+	price: number;
 
 	@ApiPropertyOptional()
 	@IsOptional()
     @IsOptional()
 	@IsInt()
 	@IsPositive()
-	discount?: number;
+	discount: number;
 
 	@ApiPropertyOptional()
     @IsOptional()
-	@IsInt()
-	@IsPositive()
-	typeId?: number;
-
-	@ApiPropertyOptional()
-    @IsOptional()
-	@IsBoolean()
-	isHide?: boolean;
+	@IsString()
+	@IsUUID()
+	typeId: string;
 
 	@ApiPropertyOptional()
     @IsOptional()
 	@IsBoolean()
-	isAvailable?: boolean;
+	isHide: boolean;
+
+	@ApiPropertyOptional()
+    @IsOptional()
+	@IsBoolean()
+	isAvailable: boolean;
 }
