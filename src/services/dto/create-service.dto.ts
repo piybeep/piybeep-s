@@ -6,6 +6,8 @@ import {
 	IsString,
 	IsOptional,
 	IsBoolean,
+	IsEnum,
+	IsUUID,
 } from 'class-validator';
 
 export class CreateServiceDto {
@@ -31,9 +33,9 @@ export class CreateServiceDto {
 	discount?: number;
 
 	@ApiProperty()
-	@IsInt()
-	@IsPositive()
-	typeId: number;
+	@IsUUID()
+	@IsString()
+	typeId: string;
 
 	@ApiPropertyOptional()
 	@IsBoolean()

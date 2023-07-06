@@ -6,6 +6,7 @@ import {
 	IsPositive,
 	IsOptional,
 	IsBoolean,
+	IsUUID,
 } from 'class-validator';
 
 export class UpdateServiceDto {
@@ -13,40 +14,40 @@ export class UpdateServiceDto {
 	@IsString()
     @IsOptional()
 	@IsNotEmpty()
-	name?: string;
+	name: string;
 
 	@ApiPropertyOptional()
     @IsOptional()
 	@IsString()
 	@IsNotEmpty()
-	description?: string;
+	description: string;
 
 	@ApiPropertyOptional()
     @IsOptional()
 	@IsInt()
 	@IsPositive()
-	price?: number;
+	price: number;
 
 	@ApiPropertyOptional()
 	@IsOptional()
     @IsOptional()
 	@IsInt()
 	@IsPositive()
-	discount?: number;
+	discount: number;
 
 	@ApiPropertyOptional()
     @IsOptional()
-	@IsInt()
-	@IsPositive()
-	typeId?: number;
-
-	@ApiPropertyOptional()
-    @IsOptional()
-	@IsBoolean()
-	isHide?: boolean;
+	@IsString()
+	@IsUUID()
+	typeId: string;
 
 	@ApiPropertyOptional()
     @IsOptional()
 	@IsBoolean()
-	isAvailable?: boolean;
+	isHide: boolean;
+
+	@ApiPropertyOptional()
+    @IsOptional()
+	@IsBoolean()
+	isAvailable: boolean;
 }

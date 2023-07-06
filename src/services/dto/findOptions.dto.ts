@@ -1,8 +1,12 @@
 import { ApiPropertyOptional } from '@nestjs/swagger';
+import { Transform, Type } from 'class-transformer';
 import {
 	IsBooleanString,
 	IsEnum,
+	IsNumber,
 	IsOptional,
+	IsPort,
+	IsPositive,
 } from 'class-validator';
 
 export enum availableSortingFields {
@@ -57,4 +61,30 @@ export class FindOptions {
 	@IsBooleanString()
 	@IsOptional()
 	isHide?: string;
+
+	@ApiPropertyOptional({
+		example: 10,
+		default: 12,
+		description: 'Количество элементов страницы'
+	})
+	@IsOptional()
+	@Type(()=>Number)
+	@IsNumber()
+	@IsPositive()
+	count: number
+
+	@ApiPropertyOptional({
+		example: 1,
+		default: 0,
+		description: 'Номер страницы'
+	})
+	@IsOptional()
+	@Type(()=>Number)
+	@IsNumber()
+	page: number
+
+	constructor(count = 12, page = 0) {
+		this.count = count
+		this.page = page
+	}
 }

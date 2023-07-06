@@ -2,6 +2,7 @@ import {
 	Column,
 	CreateDateColumn,
 	Entity,
+	JoinColumn,
 	ManyToOne,
 	PrimaryGeneratedColumn,
 	UpdateDateColumn,
@@ -25,6 +26,9 @@ export class Service {
 	@Column({ nullable: true })
 	discount: number;
 
+	@Column({ nullable: true })
+	typeId: string;
+
 	@Column({ default: false })
 	isHide: boolean;
 
@@ -37,6 +41,9 @@ export class Service {
 	@UpdateDateColumn()
 	updatedAt: Date;
 
-	@ManyToOne(() => ServiceTypes, (type) => type.services)
+	@ManyToOne(() => ServiceTypes, (type) => type.services, {
+		onDelete: 'CASCADE',
+	})
+	@JoinColumn({ name: 'typeId' })
 	type: ServiceTypes;
 }

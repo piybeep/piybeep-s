@@ -3,11 +3,14 @@ import { Service } from './service.entity';
 
 @Entity('ServiceTypes')
 export class ServiceTypes {
-	@PrimaryGeneratedColumn()
-	id: number;
-	@Column()
-	type: string;
+	@PrimaryGeneratedColumn('uuid')
+	id: string;
 
-	@OneToMany(() => Service, (services) => services.type)
+	@Column()
+	name: string;
+
+	@OneToMany(() => Service, (services) => services.type, {
+		onDelete: 'CASCADE',
+	})
 	services: Service[];
 }
