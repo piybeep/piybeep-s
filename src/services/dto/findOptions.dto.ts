@@ -1,12 +1,11 @@
 import { ApiPropertyOptional } from '@nestjs/swagger';
-import { Transform, Type } from 'class-transformer';
+import { Type } from 'class-transformer';
 import {
 	IsBooleanString,
 	IsEnum,
 	IsNumber,
 	IsOptional,
-	IsPort,
-	IsPositive,
+	IsPositive
 } from 'class-validator';
 
 export enum availableSortingFields {

@@ -1,13 +1,12 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import {
+	IsBoolean,
 	IsInt,
 	IsNotEmpty,
+	IsOptional,
 	IsPositive,
 	IsString,
-	IsOptional,
-	IsBoolean,
-	IsEnum,
-	IsUUID,
+	IsUUID
 } from 'class-validator';
 
 export class CreateServiceDto {
