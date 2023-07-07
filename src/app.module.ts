@@ -8,13 +8,12 @@ import { join } from 'path';
 
 import { ProductsModule } from './products/products.module';
 import { ReviewsModule } from './reviews/reviews.module';
-import { RequestsModule } from './requests/requests.module';
+// import { RequestsModule } from './requests/requests.module';
 import { MailModule } from './mail/mail.module';
 import { AppController } from './app.controller';
 import { StaticModule } from './files/files.module';
 import { ServicesModule } from './services/services.module';
 import { ProjectsModule } from './projects/projects.module';
-
 
 @Module({
 	imports: [
@@ -67,15 +66,13 @@ import { ProjectsModule } from './projects/projects.module';
 		}),
 		ProductsModule,
 		ReviewsModule,
-		RequestsModule,
+		// RequestsModule,
 		MailModule,
 		StaticModule,
 		ServicesModule,
 		ProjectsModule,
 	],
 	controllers: [AppController],
-	providers: [
-	
-	  ]
+	providers: [],
 })
 export class AppModule {}

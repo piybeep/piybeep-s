@@ -71,6 +71,14 @@ export class ServicesService {
 		if (entity === null) {
 			throw new NotFoundException(`Service not found `);
 		} else {
+			if (
+				updateServiceDto.typeId &&
+				!(await this.ServiceTypesRepos.findOneBy({
+					id: updateServiceDto.typeId,
+				}))
+			) {
+				throw new BadRequestException('No such type');
+			}
 			const result = await this.ServiceRepos.update(
 				{ id },
 				updateServiceDto,
