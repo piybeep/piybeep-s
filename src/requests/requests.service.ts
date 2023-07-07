@@ -6,19 +6,21 @@ import { MailService } from '../mail/mail.service';
 
 import { Service } from 'src/services/entities/service.entity';
 import { ServicesService } from './../services/services.service';
-import { CreateRequestDto } from './dto/create-request.dto';
-import { FindAllRequestsDto } from './dto/findAll-requests.dto';
-import { UpdateRequestDto } from './dto/update-request.dto';
+
 import { Request } from './entities/request.entity';
 import { RequestStatuses } from './entities/request.statuses.entity';
+import { CreateRequestDto, FindAllRequestsDto, UpdateRequestDto } from './dto';
+import { ConfigService } from '@nestjs/config';
 
 @Injectable()
 export class RequestsService {
 	constructor(
 		@InjectRepository(Request) private requestsRepos: Repository<Request>,
-		@InjectRepository(RequestStatuses) private requestStatusesRepos: Repository<RequestStatuses>,
+		@InjectRepository(RequestStatuses)
+		private requestStatusesRepos: Repository<RequestStatuses>,
 		private mailService: MailService,
 		private servicesService: ServicesService,
+		private configService: ConfigService,
 	) {}
 
 	async create(createRequestDto: CreateRequestDto) {
@@ -28,6 +30,9 @@ export class RequestsService {
 		const _request = this.requestsRepos.create({
 			...createRequestDto,
 			services,
+			status: await this.requestStatusesRepos.findOneBy({
+				status_title: 'new',
+			}),
 		});
 		const request = await this.requestsRepos.save(_request);
 
@@ -38,21 +43,20 @@ export class RequestsService {
 				.join(', '),
 		};
 		await this.mailService.sendRequestNotification(requestPayload);
-		this.mailService.sendTelegramNotification(
-			// ['427307974', '1060394414', '1224772856'],
-			['986260036'],
+		await this.mailService.sendTelegramNotification(
+			this.configService.get('NODE_ENV')=='dev' ? ['986260036'] :  ['427307974', '1060394414', '1224772856'],
 			requestPayload,
 		);
 		return request;
 	}
 
-	findAll(options: FindAllRequestsDto) {
+	async findAll(options: FindAllRequestsDto) {
 		const take = options.count ?? 12;
 		const skip = options.offset ?? 0;
 
 		const order = options.sort?.split(':');
 
-		return this.requestsRepos.findAndCount({
+		const requests = await this.requestsRepos.findAndCount({
 			take,
 			skip,
 			order: Object.assign(
@@ -62,6 +66,7 @@ export class RequestsService {
 				},
 			),
 		});
+		return { data: requests[0], count: requests[1] };
 	}
 
 	async findOne(id: string) {
@@ -83,18 +88,23 @@ export class RequestsService {
 			if (!_services || _services.length === 0) {
 				throw new BadRequestException('invalid services param');
 			}
-			saveObj.services = _services
+			saveObj.services = _services;
 		}
-		if(!!options.statusId){
-			const status = await this.getServiceStatus(options.statusId)
-			if(!status) throw new BadRequestException('invalid statusId param')
-			saveObj.status = status
+		if (!!options.statusId) {
+			const status = await this.getServiceStatus(options.statusId);
+			if (!status)
+				throw new BadRequestException('invalid statusId param');
+			saveObj.status = status;
 		}
 
 		return await this.requestsRepos.save(saveObj);
 	}
 
-	async getServiceStatus(id: number){
-		return await this.requestStatusesRepos.findOneBy({id})
+	async getServiceStatus(id: string) {
+		return await this.requestStatusesRepos.findOneBy({ id });
+	}
+
+	async getAllStatuses() {
+		return await this.requestStatusesRepos.find();
 	}
 }

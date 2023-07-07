@@ -28,8 +28,8 @@ export class Request {
 	contact: string;
 
 	@ApiProperty()
-	@Column({type: 'uuid', default: 1})
-	statusId: number;
+	@Column({type: 'uuid'})
+	statusId: string;
 
 	@ApiProperty()
 	@CreateDateColumn()
