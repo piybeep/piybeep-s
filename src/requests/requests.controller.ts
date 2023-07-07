@@ -1,9 +1,8 @@
 import { Body, Controller, Get, Param, Post, Put, Query } from '@nestjs/common';
 import {
-	ApiOkResponse,
 	ApiOperation,
 	ApiResponse,
-	ApiTags,
+	ApiTags
 } from '@nestjs/swagger';
 
 import { CreateRequestDto } from './dto/create-request.dto';
