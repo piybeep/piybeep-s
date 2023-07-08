@@ -43,7 +43,7 @@ export class MailService {
 			'%0AСвязь: ' +
 			encodeURIComponent(payload.contact) +
 			'%0AВыбор: ' +
-			encodeURIComponent(payload.product) +
+			encodeURIComponent(payload.services) +
 			'%0A%0A<code>' +
 			encodeURIComponent(
 				typeof payload.id == 'number'

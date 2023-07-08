@@ -1,22 +1,36 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { TransformFnParams, Transform } from 'class-transformer';
-import { IsString, IsNotEmpty, IsUUID } from 'class-validator';
+import { Transform, TransformFnParams } from 'class-transformer';
+import {
+	IsArray,
+	IsNotEmpty,
+	IsOptional,
+	IsString,
+	IsUUID
+} from 'class-validator';
 
-export class CreateRequestDto {
+export class UpdateRequestDto {
 	@ApiProperty()
 	@IsString()
 	@IsNotEmpty({ message: 'Вы не ввели имя' })
+	@IsOptional()
 	@Transform(({ value }: TransformFnParams) => value?.trim())
-	name: string;
+	name?: string;
 
 	@ApiProperty()
 	@IsString()
 	@IsNotEmpty({ message: 'Вы не ввели контактные данные' })
 	@Transform(({ value }: TransformFnParams) => value?.trim())
-	contact: string;
+	@IsOptional()
+	contact?: string;
 
 	@ApiProperty()
-	@IsUUID(undefined, {each: true})
-	select : string[];
+	@IsOptional()
+	@IsString()
+	@IsUUID()
+	statusId?: string;
 
+	@ApiProperty()
+	@IsOptional()
+	@IsArray()
+	services?: [string];
 }

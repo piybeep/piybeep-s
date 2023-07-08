@@ -4,8 +4,10 @@ import {
 	PrimaryGeneratedColumn,
 	Entity,
 	UpdateDateColumn,
+	OneToMany,
 } from 'typeorm';
 import { ApiProperty } from '@nestjs/swagger';
+import { Review } from 'src/reviews/entities/review.entity';
 
 @Entity()
 export class Project {
@@ -52,4 +54,7 @@ export class Project {
 	@ApiProperty()
 	@UpdateDateColumn()
 	updatedAt: Date;
+
+	@OneToMany(() => Review, (review) => review.project)
+	reviews: Review[];
 }

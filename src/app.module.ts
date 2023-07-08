@@ -12,6 +12,7 @@ import { RequestsModule } from './requests/requests.module';
 import { MailModule } from './mail/mail.module';
 import { AppController } from './app.controller';
 import { StaticModule } from './files/files.module';
+import { ServicesModule } from './services/services.module';
 import { ProjectsModule } from './projects/projects.module';
 
 @Module({
@@ -68,9 +69,12 @@ import { ProjectsModule } from './projects/projects.module';
 		RequestsModule,
 		MailModule,
 		StaticModule,
+		ServicesModule,
 		ProjectsModule,
 	],
 	controllers: [AppController],
-	providers: [],
+	providers: [
+	
+	  ]
 })
 export class AppModule {}
