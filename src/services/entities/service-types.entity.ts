@@ -16,7 +16,7 @@ export class ServiceTypes {
 	name: string;
 
 	@OneToMany(() => Service, (services) => services.type, {
-		onDelete: 'CASCADE',
+		onDelete: 'SET NULL',
 	})
 	services: Service[];
 }
