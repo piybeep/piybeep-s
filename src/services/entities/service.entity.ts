@@ -52,7 +52,9 @@ export class Service {
 	@UpdateDateColumn()
 	updatedAt: Date;
 
-	@ManyToOne(() => ServiceTypes, (type) => type.services, {onDelete:'SET NULL'})
+	@ManyToOne(() => ServiceTypes, (type) => type.services, {
+		onDelete: 'CASCADE',
+	})
 	@JoinColumn({ name: 'typeId' })
 	type: ServiceTypes;
 }

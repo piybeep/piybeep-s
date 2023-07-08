@@ -19,7 +19,7 @@ RUN yarn run build
 
 FROM node:lts-alpine as running
 WORKDIR /app
-ENV NODE_ENV production
+ENV NODE_ENV dev
 COPY --from=builder /app/*.json ./
 COPY --from=builder /app/.env ./
 COPY --from=builder /app/dist ./dist

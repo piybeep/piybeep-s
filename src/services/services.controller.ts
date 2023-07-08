@@ -16,7 +16,7 @@ import {
 	ApiOperation,
 	ApiParam,
 	ApiResponse,
-	ApiTags,
+	ApiTags
 } from '@nestjs/swagger';
 import {
 	CreateServiceDto,
