@@ -10,7 +10,11 @@ import {
 
 export enum availableSortingFields {
 	name = 'name',
+	description='description',
 	price = 'price',
+	typeId = 'typeId',
+	isHide = 'isHide',
+	isAvailable = 'isAvailable',
 	discount = 'discount',
 	createdAt = 'createdAt',
 	updatedAt = 'updatedAt',
