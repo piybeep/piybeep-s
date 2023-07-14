@@ -1,11 +1,9 @@
-import { IsInt, IsPositive } from 'class-validator';
+import { IsNumberString } from 'class-validator';
 
 export class FindAllProjectsDto {
-	@IsInt()
-	@IsPositive()
+	@IsNumberString()
 	take: number;
 
-	@IsInt()
-	@IsPositive()
+	@IsNumberString()
 	skip: number;
 }

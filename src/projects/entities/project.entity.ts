@@ -7,7 +7,7 @@ import {
 	OneToMany,
 } from 'typeorm';
 import { ApiProperty } from '@nestjs/swagger';
-import { Review } from 'src/reviews/entities/review.entity';
+import { Review } from '../../reviews/entities/review.entity';
 
 @Entity()
 export class Project {
