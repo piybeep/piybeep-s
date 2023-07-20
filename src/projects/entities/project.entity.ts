@@ -21,6 +21,14 @@ export class Project {
 
 	@ApiProperty()
 	@Column({ type: 'varchar' })
+	subtitle: string;
+
+	@ApiProperty()
+	@Column({ type: 'varchar' })
+	preview_image: string;
+
+	@ApiProperty()
+	@Column({ type: 'varchar' })
 	customer: string;
 
 	@ApiProperty()

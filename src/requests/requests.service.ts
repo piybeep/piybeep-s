@@ -4,8 +4,8 @@ import { Repository } from 'typeorm';
 
 import { MailService } from '../mail/mail.service';
 
-import { Service } from 'src/services/entities/service.entity';
-import { ServicesService } from './../services/services.service';
+import { Service } from '../services/entities/service.entity';
+import { ServicesService } from '../services/services.service';
 
 import { Request } from './entities/request.entity';
 import { RequestStatuses } from './entities/request.statuses.entity';
@@ -36,7 +36,7 @@ export class RequestsService {
 		});
 		const request = await this.requestsRepos.save(_request);
 
-		const requestPayload = {
+		/* const requestPayload = {
 			...request,
 			services: request.services
 				.map((service) => service.name)
@@ -46,7 +46,7 @@ export class RequestsService {
 		await this.mailService.sendTelegramNotification(
 			this.configService.get('NODE_ENV')=='dev' ? ['986260036'] :  ['427307974', '1060394414', '1224772856'],
 			requestPayload,
-		);
+		); */
 		return request;
 	}
 
